@@ -2,8 +2,9 @@
 
 int main(){
 
-    @[for surname in type_includes]@
-    std::cout <<" @(surname) "<< std::endl;
+    @[for surname in subscriptions ]@
+    std::cout <<" @(surname['topic']) "<< std::endl;
     @[end for]@
+
     return 0;
 }

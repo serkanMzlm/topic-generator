@@ -2,7 +2,8 @@
 
 int main(){
 
-        std::cout <<" imu "<< std::endl;
-        std::cout <<" range_deneme "<< std::endl;
-        return 0;
+        std::cout <<" /out/range "<< std::endl;
+        std::cout <<" /out/imu "<< std::endl;
+    
+    return 0;
 }
