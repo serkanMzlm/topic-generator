@@ -1,0 +1,11 @@
+publications:
+  - topic: /out/range
+    type: sensor_msgs::msg::Range
+  - topic: /out/imu
+    type: sensor_msgs::msg::Imu
+
+subscriptions:
+  - topic: /out/range
+    type: sensor_msgs::msg::Range
+  - topic: /out/imu
+    type: sensor_msgs::msg::Imu
