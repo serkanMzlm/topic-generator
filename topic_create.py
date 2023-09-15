@@ -5,11 +5,29 @@ import em
 import re
 import yaml
 
-yaml_file = "topic_names.yml"
-template_file = "dynamic_topic.hpp.em"
-output_file = "main.cpp"
+parser = argparse.ArgumentParser()
 
-with open(yaml_file, 'r') as file:
+parser.add_argument('-y', '--yaml-file', dest='yaml_file', type=str, 
+                    default=None, help="yaml file location")
+parser.add_argument('-t', '--template-file', dest='template_file', type=str,
+                    default=None, help="enter template file")
+parser.add_argument("-u", "--outdir", dest='outdir', type=str,
+                    help="file output dir", default=None)
+
+if len(sys.argv) <= 1:
+    parser.print_usage()
+    exit(-1)
+
+args = parser.parse_args()
+template_file = os.path.join(args.template_file)
+out_dir = os.path.abspath(args.outdir)
+
+if not os.path.isdir(out_dir):
+    os.makedirs(out_dir)
+
+output_file = os.path.join(out_dir, os.path.basename(template_file).replace(".em", ""))
+
+with open(args.yaml_file, 'r') as file:
     msg_map = yaml.safe_load(file);
 
 merged_em = {}
