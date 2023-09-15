@@ -1,11 +1,15 @@
 publications:
-  - topic: /out/range
-    type: sensor_msgs::msg::Range
+  # - topic: /out/range
+  #   type: sensor_msgs::msg::Range
   - topic: /out/imu
     type: sensor_msgs::msg::Imu
+  - topic: /out/range
+    type: sensor_msgs::msg::Range
 
 subscriptions:
-  - topic: /out/range
-    type: sensor_msgs::msg::Range
+  # - topic: /out/range
+  #   type: sensor_msgs::msg::Range
   - topic: /out/imu
     type: sensor_msgs::msg::Imu
+  - topic: /out/range
+    type: sensor_msgs::msg::Range
