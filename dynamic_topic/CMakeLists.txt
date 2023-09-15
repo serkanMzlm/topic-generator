@@ -28,9 +28,9 @@ find_package(geometry_msgs REQUIRED)
 # )
 
 execute_process(
-    COMMAND python3 ${CMAKE_CURRENT_SOURCE_DIR}/topic_create.py
-            --yaml-file ${CMAKE_CURRENT_SOURCE_DIR}/topic_names.yml
-            --template-file ${CMAKE_CURRENT_SOURCE_DIR}/dynamic_topic.hpp.em
+    COMMAND python3 ${CMAKE_CURRENT_SOURCE_DIR}/interpret/topic_create.py
+            --yaml-file ${CMAKE_CURRENT_SOURCE_DIR}/params/topic_names.yml
+            --template-file ${CMAKE_CURRENT_SOURCE_DIR}/interpret/dynamic_topic.hpp.em
             --outdir ${CMAKE_CURRENT_SOURCE_DIR}/include
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     RESULT_VARIABLE result
