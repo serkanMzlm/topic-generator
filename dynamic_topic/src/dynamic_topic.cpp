@@ -8,6 +8,7 @@ DynamicTopic::DynamicTopic(): Node("dynamic_topic_node"){
     pub.range = this->create_publisher<rangeMsg>("/out/range", 10);
     timer.range   = this->create_wall_timer(std::chrono::milliseconds(P2F(20)),
                     std::bind(&DynamicTopic::pubRangeCallback, this));
+    RCLCPP_INFO(this->get_logger(), "Topic Started.");
 
 }
 
