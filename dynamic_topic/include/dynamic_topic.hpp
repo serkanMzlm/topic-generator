@@ -6,6 +6,7 @@
 
 #define P2F(X) (1/X)
 
+using rangeMsg = sensor_msgs::msg::Imu;
 using rangeMsg = sensor_msgs::msg::Range;
 
 typedef struct{
