@@ -12,11 +12,35 @@ find_package(std_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 
+# add_custom_command(
+#     OUTPUT dynamic_topic.cpp
+#     COMMAND python3 ${CMAKE_CURRENT_SOURCE_DIR}/topic_create.py
+#             --yaml-file ${CMAKE_CURRENT_SOURCE_DIR}/topic_names.yml
+#             --template-file ${CMAKE_CURRENT_SOURCE_DIR}/dynamic_topic.cpp.em
+#             --outdir ${CMAKE_CURRENT_SOURCE_DIR}
+#             # --outdir ${CMAKE_CURRENT_BINARY_DIR}
+            
+#     DEPENDS
+# 			${CMAKE_CURRENT_SOURCE_DIR}/topic_create.py
+# 			${CMAKE_CURRENT_SOURCE_DIR}/dynamic_topic.cpp.em
+# 			${CMAKE_CURRENT_SOURCE_DIR}/topic_names.yml
+#     COMMENT "Running Python script to generate topic header"
+# )
+
+execute_process(
+    COMMAND python3 ${CMAKE_CURRENT_SOURCE_DIR}/topic_create.py
+            --yaml-file ${CMAKE_CURRENT_SOURCE_DIR}/topic_names.yml
+            --template-file ${CMAKE_CURRENT_SOURCE_DIR}/dynamic_topic.hpp.em
+            --outdir ${CMAKE_CURRENT_SOURCE_DIR}/include
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    RESULT_VARIABLE result
+)
 
 file(GLOB_RECURSE SOURCE_CODE  ${PROJECT_SOURCE_DIR}/src/*.cpp)
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
 add_executable(dynamic_topic_node ${SOURCE_CODE})
+# add_executable(dyn dynamic_topic.cpp)
 
 ament_target_dependencies(dynamic_topic_node 
   rclcpp
@@ -29,17 +53,5 @@ install(TARGETS
   dynamic_topic_node
   DESTINATION lib/${PROJECT_NAME}
 )
-
-if(BUILD_TESTING)
-  find_package(ament_lint_auto REQUIRED)
-  # the following line skips the linter which checks for copyrights
-  # comment the line when a copyright and license is added to all source files
-  set(ament_cmake_copyright_FOUND TRUE)
-  # the following line skips cpplint (only works in a git repo)
-  # comment the line when this package is in a git repo and when
-  # a copyright and license is added to all source files
-  set(ament_cmake_cpplint_FOUND TRUE)
-  ament_lint_auto_find_test_dependencies()
-endif()
 
 ament_package()
