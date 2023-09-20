@@ -2,12 +2,13 @@
 #define __DYNAMIC_TOPIC__
 
 #include "rclcpp/rclcpp.hpp"
-#include "sensor_msgs/msg/range.hpp"
-
+@[for inc in includes]@
+#include "@(inc).hpp"
+@[end for]@
 #define P2F(X) (1/X)
 
-@[for surname in subscriptions ]@
-using rangeMsg = @(surname['type']);
+@[for sub_name in subscriptions ]@
+
 @[end for]@
 
 typedef struct{

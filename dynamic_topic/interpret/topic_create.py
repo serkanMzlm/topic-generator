@@ -28,10 +28,11 @@ if not os.path.isdir(out_dir):
 output_file = os.path.join(out_dir, os.path.basename(template_file).replace(".em", ""))
 
 with open(args.yaml_file, 'r') as file:
-    msg_map = yaml.safe_load(file);
+    msg_map = yaml.safe_load(file)
 
 merged_em = {}
 all_type_includes = []
+ros2_includes = []
 
 for p in msg_map['publications']:
     base_type = p['type'].split('::')[-1]
@@ -41,11 +42,15 @@ for p in msg_map['publications']:
 for s in msg_map['subscriptions']:
     base_type = s['type'].split('::')[-1]
     base_type_name_snake_case = re.sub(r'(?<!^)(?=[A-Z])', '_',base_type).lower()
+    includes = "/".join(s['type'].split('::')[:-1])
+    ros2_includes.append(includes + "/" + base_type_name_snake_case)
     all_type_includes.append(base_type_name_snake_case)
 
 merged_em['subscriptions'] = msg_map['subscriptions']
 merged_em['publications'] = msg_map['publications']
 merged_em['type_includes'] = sorted(set(all_type_includes))
+merged_em['includes'] = sorted(set(ros2_includes))
+
 
 o_file = open(output_file, 'w')
 interpreter = em.Interpreter(output=o_file, globals=merged_em, options={em.RAW_OPT: True, em.BUFFERED_OPT: True})

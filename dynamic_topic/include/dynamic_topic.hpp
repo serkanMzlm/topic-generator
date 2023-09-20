@@ -2,12 +2,16 @@
 #define __DYNAMIC_TOPIC__
 
 #include "rclcpp/rclcpp.hpp"
+#include "geometry_msgs/msg/twist.hpp"
+#include "sensor_msgs/msg/imu.hpp"
 #include "sensor_msgs/msg/range.hpp"
-
+#include "std_msgs/msg/float32.hpp"
 #define P2F(X) (1/X)
 
-using rangeMsg = sensor_msgs::msg::Imu;
-using rangeMsg = sensor_msgs::msg::Range;
+
+
+
+
 
 typedef struct{
     rclcpp::Publisher<rangeMsg>::SharedPtr range;
