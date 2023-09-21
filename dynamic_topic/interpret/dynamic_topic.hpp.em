@@ -2,13 +2,14 @@
 #define __DYNAMIC_TOPIC__
 
 #include "rclcpp/rclcpp.hpp"
-@[for inc in includes]@
+@[for inc in includes.keys()]@
 #include "@(inc).hpp"
 @[end for]@
+
 #define P2F(X) (1/X)
 
-@[for sub_name in subscriptions ]@
-
+@[for key, value in includes.items()]@
+using @(value[0])Msg = @(value[1]['type']); 
 @[end for]@
 
 typedef struct{
