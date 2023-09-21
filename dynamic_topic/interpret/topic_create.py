@@ -34,11 +34,6 @@ merged_em = {}
 all_type_includes = []
 ros2_includes = []
 
-for p in msg_map['publications']:
-    base_type = p['type'].split('::')[-1]
-    base_type_name_snake_case = re.sub(r'(?<!^)(?=[A-Z])', '_',base_type).lower()
-    all_type_includes.append(base_type_name_snake_case)
-
 for s in msg_map['subscriptions']:
     base_type = s['type'].split('::')[-1]
     base_type_name_snake_case = re.sub(r'(?<!^)(?=[A-Z])', '_',base_type).lower()
@@ -47,10 +42,6 @@ for s in msg_map['subscriptions']:
     all_type_includes.append(base_type_name_snake_case)
 
 merged_em['subscriptions'] = msg_map['subscriptions']
-merged_em['publications'] = msg_map['publications']
-merged_em['type_includes'] = sorted(set(all_type_includes))
-merged_em['includes'] = sorted(set(ros2_includes))
-
 
 o_file = open(output_file, 'w')
 interpreter = em.Interpreter(output=o_file, globals=merged_em, options={em.RAW_OPT: True, em.BUFFERED_OPT: True})
