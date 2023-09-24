@@ -17,7 +17,9 @@ typedef struct{
 }Pub_t;
 
 typedef struct{
-    rclcpp::Subscription<rangeMsg>::SharedPtr range;
+    @[for key, value in includes.items()]@
+    rclcpp::Subscription<@(value[0])Msg>::SharedPtr @(value[0]);
+    @[end for]@
 }Sub_t;
 
 typedef struct{

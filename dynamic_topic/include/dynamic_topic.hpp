@@ -19,8 +19,11 @@ typedef struct{
 }Pub_t;
 
 typedef struct{
-    rclcpp::Subscription<rangeMsg>::SharedPtr range;
-}Sub_t;
+        rclcpp::Subscription<imuMsg>::SharedPtr imu;
+        rclcpp::Subscription<rangeMsg>::SharedPtr range;
+        rclcpp::Subscription<twistMsg>::SharedPtr twist;
+        rclcpp::Subscription<float32Msg>::SharedPtr float32;
+    }Sub_t;
 
 typedef struct{
     rclcpp::TimerBase::SharedPtr range;

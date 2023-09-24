@@ -1,8 +1,10 @@
 publications:
-  # - topic: /out/imu
-  #   type: sensor_msgs::msg::Imu
-  - topic: /out/range
+  - topic: /in/imu
+    type: sensor_msgs::msg::Imu
+  - topic: /in/range
     type: sensor_msgs::msg::Range
+  - topic: /in/twist
+    type: geometry_msgs::msg::Twist
 
 subscriptions:
   - topic: /in/imu

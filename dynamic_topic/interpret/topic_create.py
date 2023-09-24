@@ -34,19 +34,26 @@ merged = {}
 include = {}
 ros2_includes = []
 
-for s in msg_map['subscriptions']:
-    base_type = s['type'].split('::')[-1]
-    # snake case değişken yazılış türüne dönüştürülür.
-    type_name = re.sub(r'(?<!^)(?=[A-Z])', '_',base_type).lower()
-    include_path = "/".join(s['type'].split('::')[:-1])
-    dic_key = include_path + "/" + type_name
-    include[dic_key] = [type_name, s] 
+def process_message_type(msg_type):
+	base_type = msg_type['type'].split('::')[-1]
+	snake_case_type = re.sub(r'(?<!^)(?=[A-Z])', '_', base_type).lower()
+	include_path = "/".join(msg_type['type'].split('::')[:-1]) + "/" + snake_case_type
+	if include_path in include:
+		return
+	include[include_path] = [snake_case_type, msg_type]      
 
+for sub in msg_map['subscriptions']:
+	process_message_type(sub)
+
+for pub in msg_map['publications']:
+	process_message_type(pub)     
+ 
 merged['subscriptions'] = msg_map['subscriptions']
 merged['includes'] = include
 
 o_file = open(output_file, 'w')
-interpreter = em.Interpreter(output=o_file, globals=merged, options={em.RAW_OPT: True, em.BUFFERED_OPT: True})
+interpreter = em.Interpreter(output=o_file, globals=merged, 
+                            options={em.RAW_OPT: True, em.BUFFERED_OPT: True})
 
 try:
     interpreter.file(open(template_file))
