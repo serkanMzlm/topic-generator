@@ -3,8 +3,8 @@ publications:
     type: sensor_msgs::msg::Imu
   - topic: /in/range
     type: sensor_msgs::msg::Range
-  - topic: /in/twist
-    type: geometry_msgs::msg::Twist
+  # - topic: /in/twist
+  #   type: geometry_msgs::msg::Twist
 
 subscriptions:
   - topic: /in/imu

@@ -13,17 +13,23 @@ using @(value[0])Msg = @(value[1]['type']);
 @[end for]@
 
 typedef struct{
-    rclcpp::Publisher<rangeMsg>::SharedPtr range;
+    @[for key, value in publications.items()]@
+    rclcpp::Publisher<@(key)Msg>::SharedPtr @(key);
+    @[end for]@
+
 }Pub_t;
 
 typedef struct{
-    @[for key, value in includes.items()]@
-    rclcpp::Subscription<@(value[0])Msg>::SharedPtr @(value[0]);
+    @[for key, value in subscriptions.items()]@
+    rclcpp::Subscription<@(key)Msg>::SharedPtr @(key);
     @[end for]@
+
 }Sub_t;
 
 typedef struct{
-    rclcpp::TimerBase::SharedPtr range;
+    @[for key, value in publications.items()]@
+    rclcpp::TimerBase::SharedPtr @(key);
+    @[end for]@
 }Time_t;
 
 class DynamicTopic: public rclcpp::Node{

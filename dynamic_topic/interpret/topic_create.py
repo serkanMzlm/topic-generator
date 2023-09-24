@@ -31,25 +31,29 @@ with open(args.yaml_file, 'r') as file:
     msg_map = yaml.safe_load(file)
 
 merged = {}
+
 include = {}
-ros2_includes = []
-
+pub = {}
+sub = {}
+          
 def process_message_type(msg_type):
-	base_type = msg_type['type'].split('::')[-1]
-	snake_case_type = re.sub(r'(?<!^)(?=[A-Z])', '_', base_type).lower()
-	include_path = "/".join(msg_type['type'].split('::')[:-1]) + "/" + snake_case_type
-	if include_path in include:
-		return
-	include[include_path] = [snake_case_type, msg_type]      
+    base_type = msg_type['type'].split('::')[-1]
+    snake_case_type = re.sub(r'(?<!^)(?=[A-Z])', '_', base_type).lower()
+    include_path = "/".join(msg_type['type'].split('::')[:-1]) + "/" + snake_case_type
+    if include_path not in include:
+        include[include_path] = [snake_case_type, msg_type] 
+    return snake_case_type 
 
-for sub in msg_map['subscriptions']:
-	process_message_type(sub)
 
-for pub in msg_map['publications']:
-	process_message_type(pub)     
- 
-merged['subscriptions'] = msg_map['subscriptions']
+for sub_ in msg_map['subscriptions']:
+	sub[process_message_type(sub_)] = msg_map['subscriptions']
+
+for pub_ in msg_map['publications']:
+    pub[process_message_type(pub_)] = msg_map['publications']
+
 merged['includes'] = include
+merged['subscriptions'] = sub
+merged['publications'] = pub
 
 o_file = open(output_file, 'w')
 interpreter = em.Interpreter(output=o_file, globals=merged, 
