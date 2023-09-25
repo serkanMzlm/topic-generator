@@ -9,23 +9,27 @@ parser = argparse.ArgumentParser()
 
 parser.add_argument('-y', '--yaml-file', dest='yaml_file', type=str, 
                     default=None, help="yaml file location")
-parser.add_argument('-t', '--template-file', dest='template_file', type=str,
-                    default=None, help="enter template file")
-parser.add_argument("-u", "--outdir", dest='outdir', type=str,
-                    help="file output dir", default=None)
+parser.add_argument('-t', '--template-declaration', dest='declaration_file', type=str,
+                    default=None, help="enter template declaration file")
+parser.add_argument('-T', '--template-definition', dest='definition_file', type=str,
+                    default=None, help="enter template definition file")
+parser.add_argument("-u", "--outdir-declaration", dest='declaration_outdir', type=str,
+                    help="file output declaration dir", default=None)
+parser.add_argument("-U", "--outdir-definition", dest='definition_outdir', type=str,
+                    help="file output definition dir", default=None)
 
 if len(sys.argv) <= 1:
     parser.print_usage()
     exit(-1)
 
 args = parser.parse_args()
-template_file = os.path.join(args.template_file)
-out_dir = os.path.abspath(args.outdir)
+declaration_file = os.path.join(args.declaration_file)
+declaration_dir = os.path.abspath(args.declaration_outdir)
 
-if not os.path.isdir(out_dir):
-    os.makedirs(out_dir)
+if not os.path.isdir(declaration_dir):
+    os.makedirs(declaration_dir)
 
-output_file = os.path.join(out_dir, os.path.basename(template_file).replace(".em", ""))
+output_file = os.path.join(declaration_dir, os.path.basename(declaration_file).replace(".em", ""))
 
 with open(args.yaml_file, 'r') as file:
     msg_map = yaml.safe_load(file)
@@ -60,7 +64,7 @@ interpreter = em.Interpreter(output=o_file, globals=merged,
                             options={em.RAW_OPT: True, em.BUFFERED_OPT: True})
 
 try:
-    interpreter.file(open(template_file))
+    interpreter.file(open(declaration_file))
 except OSError as e:
     o_file.close()
     os.remove(output_file)

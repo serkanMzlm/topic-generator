@@ -30,6 +30,7 @@ typedef struct{
     @[for key, value in publications.items()]@
     rclcpp::TimerBase::SharedPtr @(key);
     @[end for]@
+    
 }Time_t;
 
 class DynamicTopic: public rclcpp::Node{
