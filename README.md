@@ -10,7 +10,6 @@ colcon build --packages-select dynamic_topic
 . install/setup.bash
 ros2 run dynamic_topic dynamic_topic_node
 ```
--
 
 - `main.cpp` dosyasına eklenmek istenen yeni özellikler yazılır.
 - `dynamic_topic.cpp` ve `dynamic_topic.hpp` dosyalarına kalıcı bir kod yazılması için bu dosyaların `.em` uzantılı paketlerine yazılmalıdır. (Bu dosyalar sürekli baştan oluşturulduğu için bu dosyalara yazdığınız kodlar geçersiz olur.)
