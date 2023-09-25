@@ -1,6 +1,6 @@
 publications:
-  - topic: /in/imu
-    type: sensor_msgs::msg::Imu
+  # - topic: /in/imu
+  #   type: sensor_msgs::msg::Imu
   - topic: /in/range
     type: sensor_msgs::msg::Range
   # - topic: /in/twist

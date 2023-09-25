@@ -57,10 +57,11 @@ def process_message_type(msg_type):
 
 
 for sub_ in msg_map['subscriptions']:
-	sub[process_message_type(sub_)] = msg_map['subscriptions']
+	# sub[process_message_type(sub_)] = [msg_map['subscriptions'], sub_]
+	sub[process_message_type(sub_)] =  sub_
 
 for pub_ in msg_map['publications']:
-    pub[process_message_type(pub_)] = msg_map['publications']
+    pub[process_message_type(pub_)] =  pub_
 
 merged['includes']      = include
 merged['subscriptions'] = sub

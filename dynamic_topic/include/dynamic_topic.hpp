@@ -15,7 +15,6 @@ using twistMsg = geometry_msgs::msg::Twist;
 using float32Msg = std_msgs::msg::Float32; 
 
 typedef struct{
-        rclcpp::Publisher<imuMsg>::SharedPtr imu;
         rclcpp::Publisher<rangeMsg>::SharedPtr range;
     
 }Pub_t;
@@ -29,21 +28,28 @@ typedef struct{
 }Sub_t;
 
 typedef struct{
-        rclcpp::TimerBase::SharedPtr imu;
         rclcpp::TimerBase::SharedPtr range;
         
 }Time_t;
 
 class DynamicTopic: public rclcpp::Node{
-public:
-    DynamicTopic();
-    void pubRangeCallback();
-    void subRangeCallback(const rangeMsg);
-
 private:
     Pub_t pub;
     Sub_t sub;
     Time_t timer;
+    
+public:
+    DynamicTopic();
+    ~DynamicTopic();
+
+    void pubRangeCallback();
+
+    void subImuCallback(const imuMsg);
+    void subRangeCallback(const rangeMsg);
+    void subTwistCallback(const twistMsg);
+    void subFloat32Callback(const float32Msg);
+    void subRangeCallback(const rangeMsg);
+
 };
 
 #endif
