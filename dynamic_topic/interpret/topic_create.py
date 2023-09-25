@@ -24,12 +24,19 @@ if len(sys.argv) <= 1:
 
 args = parser.parse_args()
 declaration_file = os.path.join(args.declaration_file)
-declaration_dir = os.path.abspath(args.declaration_outdir)
+declaration_dir  = os.path.abspath(args.declaration_outdir)
+
+definition_file  = os.path.join(args.definition_file)
+definition_dir   = os.path.abspath(args.definition_outdir)
 
 if not os.path.isdir(declaration_dir):
     os.makedirs(declaration_dir)
 
-output_file = os.path.join(declaration_dir, os.path.basename(declaration_file).replace(".em", ""))
+if not os.path.isdir(definition_dir):
+    os.makedirs(definition_dir)
+
+output_declaration_file = os.path.join(declaration_dir, os.path.basename(declaration_file).replace(".em", ""))
+output_definition_file  = os.path.join(definition_dir, os.path.basename(definition_file).replace(".em", ""))
 
 with open(args.yaml_file, 'r') as file:
     msg_map = yaml.safe_load(file)
@@ -55,20 +62,36 @@ for sub_ in msg_map['subscriptions']:
 for pub_ in msg_map['publications']:
     pub[process_message_type(pub_)] = msg_map['publications']
 
-merged['includes'] = include
+merged['includes']      = include
 merged['subscriptions'] = sub
-merged['publications'] = pub
+merged['publications']  = pub
 
-o_file = open(output_file, 'w')
-interpreter = em.Interpreter(output=o_file, globals=merged, 
+merged2 = merged
+
+o_dec_file = open(output_declaration_file, 'w')
+o_def_file = open(output_definition_file, 'w')
+
+interpreter_dec = em.Interpreter(output=o_dec_file, globals=merged, 
                             options={em.RAW_OPT: True, em.BUFFERED_OPT: True})
+interpreter_def = em.Interpreter(output=o_def_file, options={em.RAW_OPT: True, 
+                                                             em.BUFFERED_OPT: True})
 
 try:
-    interpreter.file(open(declaration_file))
+    interpreter_dec.file(open(declaration_file))
 except OSError as e:
-    o_file.close()
-    os.remove(output_file)
+    o_dec_file.close()
+    os.remove(output_declaration_file)
     raise
 
-interpreter.shutdown()
-o_file.close()
+
+try:
+    interpreter_def.file(open(definition_file))
+except OSError as e:
+    o_def_file.close()
+    os.remove(output_definition_file)
+    raise
+
+interpreter_dec.shutdown()
+interpreter_def.shutdown()
+o_dec_file.close()
+o_def_file.close()
