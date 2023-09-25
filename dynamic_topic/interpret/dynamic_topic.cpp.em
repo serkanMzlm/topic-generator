@@ -13,7 +13,7 @@ DynamicTopic::DynamicTopic(): Node("dynamic_topic_node"){
 @[end for]@
 
 @[for key, value in publications.items()]@
-    timer.@(key) = this->create_wall_timer(std::chrono::milliseconds(P2F(20)),
+    timer.@(key) = this->create_wall_timer(std::chrono::milliseconds(P2F(@(value['hz']))),
                         std::bind(&DynamicTopic::pub@(value['type'].split('::')[-1])Callback, this));
 @[end for]@
 

@@ -17,6 +17,7 @@ using imuMsg = sensor_msgs::msg::Imu;
 typedef struct{
         rclcpp::Publisher<imuMsg>::SharedPtr imu;
         rclcpp::Publisher<rangeMsg>::SharedPtr range;
+        rclcpp::Publisher<twistMsg>::SharedPtr twist;
     
 }Pub_t;
 
@@ -30,6 +31,7 @@ typedef struct{
 typedef struct{
         rclcpp::TimerBase::SharedPtr imu;
         rclcpp::TimerBase::SharedPtr range;
+        rclcpp::TimerBase::SharedPtr twist;
         
 }Time_t;
 
@@ -45,6 +47,7 @@ public:
 
     void pubImuCallback();
     void pubRangeCallback();
+    void pubTwistCallback();
 
     void subRangeCallback(const rangeMsg);
     void subTwistCallback(const twistMsg);

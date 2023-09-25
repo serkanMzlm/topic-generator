@@ -1,10 +1,13 @@
 publications:
   - topic: /out/imu
     type: sensor_msgs::msg::Imu
+    hz: 100
   - topic: /out/range
     type: sensor_msgs::msg::Range
-  # - topic: /out/twist
-  #   type: geometry_msgs::msg::Twist
+    hz: 25
+  - topic: /out/twist
+    type: geometry_msgs::msg::Twist
+    hz: 5
 
 subscriptions:
   # - topic: /in/imu
