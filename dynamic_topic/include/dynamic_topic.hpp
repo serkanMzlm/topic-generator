@@ -31,7 +31,8 @@ typedef struct{
 typedef struct{
         rclcpp::TimerBase::SharedPtr imu;
         rclcpp::TimerBase::SharedPtr range;
-    }Time_t;
+        
+}Time_t;
 
 class DynamicTopic: public rclcpp::Node{
 public:

@@ -17,8 +17,9 @@ add_custom_command(
     COMMAND python3 ${CMAKE_CURRENT_SOURCE_DIR}/interpret/topic_create.py
             --yaml-file ${CMAKE_CURRENT_SOURCE_DIR}/params/topic_names.yml
             --template-declaration ${CMAKE_CURRENT_SOURCE_DIR}/interpret/dynamic_topic.hpp.em
+            --template-definition ${CMAKE_CURRENT_SOURCE_DIR}/interpret/dynamic_topic.cpp.em
             --outdir-declaration ${CMAKE_CURRENT_SOURCE_DIR}/include
-            # --outdir ${CMAKE_CURRENT_BINARY_DIR}
+            --outdir-definition ${CMAKE_CURRENT_SOURCE_DIR}/src
             
     DEPENDS
 			${CMAKE_CURRENT_SOURCE_DIR}/interpret/topic_create.py
