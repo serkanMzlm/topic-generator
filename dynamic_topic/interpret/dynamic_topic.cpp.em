@@ -19,10 +19,3 @@ void DynamicTopic::pubRangeCallback(){
 void DynamicTopic::subRangeCallback(const rangeMsg msg){
 
 }
-
-int main(int argc, char ** args){
-  rclcpp::init(argc, args);
-  rclcpp::spin(std::make_shared<DynamicTopic>());
-  rclcpp::shutdown();
-  return 0;
-}

@@ -5,3 +5,8 @@ Paketin içinde bulunan `params\topic_names.yml` dosyası ROS2 için **publicati
 ```
 colcon build --packages-select dynamic_topic
 ```
+-
+
+- `main.cpp` dosyasına eklenmek istenen yeni özellikler yazılır.
+- `dynamic_topic.cpp` ve `dynamic_topic.hpp` dosyalarına kalıcı bir kod yazılması için bu dosyaların `.em` uzantılı paketlerine yazılmalıdır. (Bu dosyalar sürekli baştan oluşturulduğu için bu dosyalara yazdığınız kodlar geçersiz olur.)
+- Eklenen yeni dosya veya silinen yeni dosya sonucunda hata alma durumunda **build, log, install** klasörleri silinip tekrardan build işlemi yapılmalıdır.
