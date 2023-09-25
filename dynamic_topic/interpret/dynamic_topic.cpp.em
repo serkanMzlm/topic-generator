@@ -3,19 +3,35 @@
 using namespace std::placeholders;
 
 DynamicTopic::DynamicTopic(): Node("dynamic_topic_node"){
-    sub.range = this->create_subscription<rangeMsg>("/in/range", 10,
-                std::bind(&DynamicTopic::subRangeCallback, this, _1));
-    pub.range = this->create_publisher<rangeMsg>("/out/range", 10);
-    timer.range   = this->create_wall_timer(std::chrono::milliseconds(P2F(20)),
-                    std::bind(&DynamicTopic::pubRangeCallback, this));
+@[for key, value in publications.items()]@
+    pub.@(key) = this->create_publisher<@(key)Msg>("@(value['topic'])", 10);
+@[end for]@
+
+@[for key, value in subscriptions.items()]@
+    sub.@(key) = this->create_subscription<@(key)Msg>("@(value['topic'])", 10,
+                std::bind(&DynamicTopic::sub@(value['type'].split('::')[-1])Callback,this,_1)); 
+@[end for]@
+
+@[for key, value in publications.items()]@
+    timer.@(key) = this->create_wall_timer(std::chrono::milliseconds(P2F(20)),
+                        std::bind(&DynamicTopic::pub@(value['type'].split('::')[-1])Callback, this));
+@[end for]@
+
     RCLCPP_INFO(this->get_logger(), "Topic Started.");
+}
+
+DynamicTopic::~DynamicTopic(){
 
 }
 
-void DynamicTopic::pubRangeCallback(){
+@[for key, value in publications.items()]@
+void DynamicTopic::pub@(value['type'].split('::')[-1])Callback(){
 
 }
+@[end for]@
 
-void DynamicTopic::subRangeCallback(const rangeMsg msg){
-
+@[for key, value in subscriptions.items()]@
+void DynamicTopic::sub@(value['type'].split('::')[-1])Callback(const @(key)Msg msg){
+    (void)msg;
 }
+@[end for]@

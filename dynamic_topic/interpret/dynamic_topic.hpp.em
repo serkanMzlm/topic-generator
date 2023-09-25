@@ -38,7 +38,7 @@ private:
     Pub_t pub;
     Sub_t sub;
     Time_t timer;
-    
+
 public:
     DynamicTopic();
     ~DynamicTopic();
@@ -50,7 +50,6 @@ public:
 @[for key, value in subscriptions.items()]@
     void sub@(value['type'].split('::')[-1])Callback(const @(key)Msg);
 @[end for]@
-    void subRangeCallback(const rangeMsg);
 
 };
 

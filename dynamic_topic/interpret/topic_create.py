@@ -67,14 +67,14 @@ merged['includes']      = include
 merged['subscriptions'] = sub
 merged['publications']  = pub
 
-merged2 = merged
+merged2 = merged.copy()
 
 o_dec_file = open(output_declaration_file, 'w')
 o_def_file = open(output_definition_file, 'w')
 
 interpreter_dec = em.Interpreter(output=o_dec_file, globals=merged, 
                             options={em.RAW_OPT: True, em.BUFFERED_OPT: True})
-interpreter_def = em.Interpreter(output=o_def_file, options={em.RAW_OPT: True, 
+interpreter_def = em.Interpreter(output=o_def_file, globals=merged2, options={em.RAW_OPT: True, 
                                                              em.BUFFERED_OPT: True})
 
 try:
