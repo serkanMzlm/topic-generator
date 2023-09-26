@@ -26,7 +26,8 @@ DynamicTopic::~DynamicTopic(){
 
 @[for key, value in publications.items()]@
 void DynamicTopic::pub@(value['type'].split('::')[-1])Callback(){
-
+    @(key)Msg msg;
+    pub.@(key)->publish(msg);
 }
 @[end for]@
 

@@ -29,13 +29,16 @@ DynamicTopic::~DynamicTopic(){
 }
 
 void DynamicTopic::pubImuCallback(){
-
+    imuMsg msg;
+    pub.imu->publish(msg);
 }
 void DynamicTopic::pubRangeCallback(){
-
+    rangeMsg msg;
+    pub.range->publish(msg);
 }
 void DynamicTopic::pubTwistCallback(){
-
+    twistMsg msg;
+    pub.twist->publish(msg);
 }
 
 void DynamicTopic::subRangeCallback(const rangeMsg msg){
