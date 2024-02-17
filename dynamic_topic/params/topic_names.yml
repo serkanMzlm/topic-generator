@@ -12,9 +12,9 @@ publications:
 subscriptions:
   # - topic: /in/imu
   #   type: sensor_msgs::msg::Imu
-  - topic: /in/range
-    type: sensor_msgs::msg::Range
-  - topic: /in/twist
-    type: geometry_msgs::msg::Twist
+  # - topic: /in/range
+  #   type: sensor_msgs::msg::Range
+  # - topic: /in/twist
+  #   type: geometry_msgs::msg::Twist
   - topic: /in/float32
     type: std_msgs::msg::Float32
