@@ -1,10 +1,10 @@
 publications:
-  - topic: /out/imu
-    type: sensor_msgs::msg::Imu
-    hz: 100
-  - topic: /out/range
-    type: sensor_msgs::msg::Range
-    hz: 25
+  # - topic: /out/imu
+  #   type: sensor_msgs::msg::Imu
+  #   hz: 100
+  # - topic: /out/range
+  #   type: sensor_msgs::msg::Range
+  #   hz: 25
   - topic: /out/twist
     type: geometry_msgs::msg::Twist
     hz: 5
@@ -16,5 +16,9 @@ subscriptions:
   #   type: sensor_msgs::msg::Range
   # - topic: /in/twist
   #   type: geometry_msgs::msg::Twist
+  - topic: /in/altimeter
+    type: std_msgs::msg::Float32
   - topic: /in/float32
     type: std_msgs::msg::Float32
+  - topic: /in/lidar
+    type: sensor_msgs::msg::LaserScan
