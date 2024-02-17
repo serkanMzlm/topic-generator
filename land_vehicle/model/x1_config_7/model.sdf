@@ -208,7 +208,7 @@
                 <always_on>1</always_on>
                 <update_rate>250</update_rate>
                 <topic>imu</topic>
-                <imu>
+                <!-- <imu>
                     <enable_orientation>0</enable_orientation>
                     <angular_velocity>
                         <x>
@@ -280,7 +280,7 @@
                             </noise>
                         </z>
                     </linear_acceleration>
-                </imu>
+                </imu> -->
             </sensor>
             <visual name="camera_visual">
                 <pose>0.43 0 0.26 0 0 0</pose>
